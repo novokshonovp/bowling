@@ -1,0 +1,19 @@
+{
+  "type": "object",
+  "required": [
+    "id",
+    "frame_scores",
+    "total_score"
+  ],
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "frame_scores": {
+      "type": "object"
+    },
+    "total_score": {
+      "type": "integer"
+    }
+  }
+}
