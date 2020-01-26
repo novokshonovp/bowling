@@ -1,24 +1,31 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
+Steps are necessary to get the
 application up and running.
 
-Things you may want to cover:
-
 * Ruby version
+`2.6.5`
 
-* System dependencies
 
-* Configuration
+* Database creation and initialization
+`bundle exec rake db:create db:migrate`
 
-* Database creation
-
-* Database initialization
 
 * How to run the test suite
 
-* Services (job queues, cache servers, search engines, etc.)
+`RAILS_ENV=test bundle exec rake db:create db:migrate`
 
-* Deployment instructions
+`bundle exec rspec --format doc`
 
-* ...
+* Usage example
+
+```
+ $curl -X POST localhost:3000/games
+ {"id":1}
+ $curl -X POST localhost:3000/games/1/balls?knocked_pins=1
+ {"id":1,"frame_scores":{"1":1},"total_score":1}
+ $curl -X POST localhost:3000/games/1/balls?knocked_pins=3
+ {"id":1,"frame_scores":{"1":4},"total_score":4}
+ $curl -X POST localhost:3000/games/1/balls?knocked_pins=7
+ {"id":1,"frame_scores":{"1":4,"2":11},"total_score":11}
+```
