@@ -13,7 +13,7 @@ class ApplicationController < ActionController::API
     render json: exception.resource.errors.to_h, status: :unprocessable_entity
   end
 
-  def cmd_error(_exception)
-    render status: :unprocessable_entity
+  def cmd_error(exception)
+    render json: exception.resource.errors.to_h, status: :unprocessable_entity
   end
 end

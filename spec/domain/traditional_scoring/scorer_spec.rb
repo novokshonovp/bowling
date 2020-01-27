@@ -134,6 +134,18 @@ RSpec.describe TraditionalScoring::Scorer do
 
       it { is_expected.to eq(1) }
     end
+
+    context 'when in the last frame (second roll)' do
+      let(:game) { { '1' => [1, 2], '2' => [0, 0], '3' => [10], '4' => [10], '5' => [2, 5], '6' => [5, 5], '7' => [0, 0], '8' => [0, 0], '9' => [0, 5], '10' => [10] } }
+
+      it { is_expected.to eq(10) }
+    end
+
+    context 'when in the last frame (third roll)' do
+      let(:game) { { '1' => [1, 2], '2' => [0, 0], '3' => [10], '4' => [10], '5' => [2, 5], '6' => [5, 5], '7' => [0, 0], '8' => [0, 0], '9' => [0, 5], '10' => [10, 10] } }
+
+      it { is_expected.to eq(10) }
+    end
   end
 
   describe '#next_roll' do

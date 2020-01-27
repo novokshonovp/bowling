@@ -29,6 +29,9 @@ module TraditionalScoring
     end
 
     def frame_closed?
+      return false if last_frame == MAX_FRAMES && strike_frame? && last_rolls.size < 3
+      return false if last_frame == MAX_FRAMES && spare_frame? && last_rolls.size < 3
+
       return true if strike_frame?
       return true if last_rolls.size == 2
       return true if game_closed?
@@ -50,6 +53,7 @@ module TraditionalScoring
 
     def next_roll
       return 1 if @game.empty?
+      return last_rolls.size + 1 if last_frame == MAX_FRAMES
 
       frame_closed? ? 1 : 2
     end

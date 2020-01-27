@@ -8,10 +8,10 @@ module Cmd
 
       interface :game_repo, default: GameRepository
       interface :ball_repo, default: BallRepository
-      interface :scorer, default: TraditionalScoring::Scorer
+      interface :traditional_scorer, default: TraditionalScoring::Scorer
 
       def execute
-        raise Cmd::CmdError, self if scorer_game.game_closed?
+        raise Cmd::CmdError, OpenStruct.new(errors: { base: 'Game closed' }) if scorer.game_closed?
 
         roll = ball_repo.new(game_id: game_id, knocked_pins: knocked_pins, frame: next_frame, roll: next_roll)
         roll.game
@@ -20,15 +20,15 @@ module Cmd
       private
 
       def next_frame
-        scorer_game.next_frame
+        scorer.next_frame
       end
 
       def next_roll
-        scorer_game.next_roll
+        scorer.next_roll
       end
 
-      def scorer_game
-        @scorer_game ||= TraditionalScoring::Scorer.new(game: game_repo.pins_by_frames(game_id))
+      def scorer
+        @scorer ||= traditional_scorer.new(game: game_repo.pins_by_frames(game_id))
       end
     end
   end
